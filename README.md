@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# terraform-provider-gitops
-=======
 # gitops Terraform Provider für gitops-REST-API
 
 ## Vorbereitungen
@@ -382,4 +379,3 @@ Siehe Logs der gitops-REST-API:
 INFO:     127.0.0.1:49832 - "GET /instances/e449ed1c-820b-43c7-b1ab-98caee3e317f HTTP/1.1" 200 OK
 INFO:     127.0.0.1:49834 - "DELETE /instances/e449ed1c-820b-43c7-b1ab-98caee3e317f HTTP/1.1" 200 OK
 ```
->>>>>>> 83869bd (init)

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # If you prefer the allow list template instead of the deny list, see community template:
 # https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
 #
@@ -22,6 +23,8 @@
 go.work
 go.work.sum
 =======
+=======
+>>>>>>> 83869bd (init)
 *.dll
 *.exe
 .DS_Store
@@ -59,5 +62,9 @@ website/vendor
 *.winfile eol=crlf
 
 vendor
+<<<<<<< HEAD
+DEV-TOKEN
+>>>>>>> 83869bd (init)
+=======
 DEV-TOKEN
 >>>>>>> 83869bd (init)
