@@ -31,7 +31,7 @@ func New(version string) func() provider.Provider {
 
 // gitopsProviderModel maps provider schema data to a Go type.
 type gitopsProviderModel struct {
-	Host                types.String `tfsdk:"host"`
+	GitopsApiURI        types.String `tfsdk:"gitops_api_uri"`
 	CachePath           types.String `tfsdk:"cache_path"`
 	Username            types.String `tfsdk:"username"`
 	Password            types.String `tfsdk:"password"`
@@ -66,7 +66,7 @@ func (p *gitopsProvider) Schema(_ context.Context, _ provider.SchemaRequest, res
 	resp.Schema = schema.Schema{
 		Description: "Interact with Gitops-API via Gitops-Client",
 		Attributes: map[string]schema.Attribute{
-			"host": schema.StringAttribute{
+			"gitops_api_uri": schema.StringAttribute{
 				Description: "URI for Gitops API. May also be provided via GITOPS_HOST environment variable.",
 				Required:    true,
 			},
@@ -141,11 +141,11 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 
 	// If practitioner provided a configuration value for any of the
 	// attributes, it must be a known value.
-	if config.Host.IsUnknown() {
+	if config.GitopsApiURI.IsUnknown() {
 		resp.Diagnostics.AddAttributeError(
-			path.Root("host"),
-			"Unknown gitops API Host",
-			"The provider cannot create the gitops API client as there is an unknown configuration value for the gitops API host.",
+			path.Root("gitops_api_uri"),
+			"Unknown gitops API GitopsApiURI",
+			"The provider cannot create the gitops API client as there is an unknown configuration value for the gitops API gitops_api_uri.",
 		)
 	}
 	if config.CachePath.IsUnknown() {
@@ -258,7 +258,7 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 	// Default values to environment variables, but override
 	// with Terraform configuration value if set.
 
-	host := os.Getenv("GITOPS_HOST")
+	gitops_api_uri := os.Getenv("GITOPS_HOST")
 	cache_path := os.Getenv("GITOPS_CACHEPATH")
 	username := os.Getenv("GITOPS_USERNAME")
 	password := os.Getenv("GITOPS_PASSWORD")
@@ -272,8 +272,8 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 	scopes := os.Getenv("GITOPS_SCOPES")
 	grant_type := os.Getenv("GITOPS_GRANTTYPE")
 
-	if !config.Host.IsNull() {
-		host = config.Host.ValueString()
+	if !config.GitopsApiURI.IsNull() {
+		gitops_api_uri = config.GitopsApiURI.ValueString()
 	}
 
 	if !config.CachePath.IsNull() {
@@ -327,12 +327,12 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 	// If any of the expected configurations are missing, return
 	// errors with provider-specific guidance.
 
-	if host == "" {
+	if gitops_api_uri == "" {
 		resp.Diagnostics.AddAttributeError(
-			path.Root("host"),
-			"Missing Gitops API Host",
-			"The provider cannot create the gitops API client as there is a missing or empty value for the gitops API host. "+
-				"Set the host value in the configuration or use the GITOPS_HOST environment variable. "+
+			path.Root("gitops_api_uri"),
+			"Missing Gitops API GitopsApiURI",
+			"The provider cannot create the gitops API client as there is a missing or empty value for the gitops API gitops_api_uri. "+
+				"Set the gitops_api_uri value in the configuration or use the GITOPS_HOST environment variable. "+
 				"If either is already set, ensure the value is not empty.",
 		)
 	}
@@ -342,7 +342,7 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 			path.Root("cache_path"),
 			"Missing Gitops API cache_path",
 			"The provider cannot create the gitops API client as there is a missing or empty value for the gitops API cache_path. "+
-				"Set the host value in the configuration or use the GITOPS_CACHEPATH environment variable. "+
+				"Set the cache_path value in the configuration or use the GITOPS_CACHEPATH environment variable. "+
 				"If either is already set, ensure the value is not empty.",
 		)
 	}
@@ -352,7 +352,7 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 			path.Root("username"),
 			"Missing Gitops API username",
 			"The provider cannot create the gitops API client as there is a missing or empty value for the gitops API username. "+
-				"Set the host value in the configuration or use the GITOPS_USERNAME environment variable. "+
+				"Set the username value in the configuration or use the GITOPS_USERNAME environment variable. "+
 				"If either is already set, ensure the value is not empty.",
 		)
 	}*/
@@ -362,7 +362,7 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 			path.Root("password"),
 			"Missing Gitops API password",
 			"The provider cannot create the gitops API client as there is a missing or empty value for the gitops API password. "+
-				"Set the host value in the configuration or use the GITOPS_PASSWORD environment variable. "+
+				"Set the password value in the configuration or use the GITOPS_PASSWORD environment variable. "+
 				"If either is already set, ensure the value is not empty.",
 		)
 	}*/
@@ -372,7 +372,7 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 			path.Root("client_id"),
 			"Missing Gitops API client_id",
 			"The provider cannot create the gitops API client as there is a missing or empty value for the gitops API client_id. "+
-				"Set the host value in the configuration or use the GITOPS_CLIENTID environment variable. "+
+				"Set the client_id value in the configuration or use the GITOPS_CLIENTID environment variable. "+
 				"If either is already set, ensure the value is not empty.",
 		)
 	}
@@ -382,7 +382,7 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 			path.Root("client_secret"),
 			"Missing Gitops API client_secret",
 			"The provider cannot create the gitops API client as there is a missing or empty value for the gitops API client_secret. "+
-				"Set the host value in the configuration or use the GITOPS_CLIENTSECRET environment variable. "+
+				"Set the client_secret value in the configuration or use the GITOPS_CLIENTSECRET environment variable. "+
 				"If either is already set, ensure the value is not empty.",
 		)
 	}*/
@@ -392,7 +392,7 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 			path.Root("token_uri"),
 			"Missing Gitops API token_uri",
 			"The provider cannot create the gitops API client as there is a missing or empty value for the gitops API token_uri. "+
-				"Set the host value in the configuration or use the GITOPS_TOKENURI environment variable. "+
+				"Set the token_uri value in the configuration or use the GITOPS_TOKENURI environment variable. "+
 				"If either is already set, ensure the value is not empty.",
 		)
 	}
@@ -402,7 +402,7 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 			path.Root("auth_uri"),
 			"Missing Gitops API auth_uri",
 			"The provider cannot create the gitops API client as there is a missing or empty value for the gitops API auth_uri. "+
-				"Set the host value in the configuration or use the GITOPS_AUTHURI environment variable. "+
+				"Set the auth_uri value in the configuration or use the GITOPS_AUTHURI environment variable. "+
 				"If either is already set, ensure the value is not empty.",
 		)
 	}
@@ -412,7 +412,7 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 			path.Root("jwks_uri"),
 			"Missing Gitops API jwks_uri",
 			"The provider cannot create the gitops API client as there is a missing or empty value for the gitops API jwks_uri. "+
-				"Set the host value in the configuration or use the GITOPS_JWKSURI environment variable. "+
+				"Set the jwks_uri value in the configuration or use the GITOPS_JWKSURI environment variable. "+
 				"If either is already set, ensure the value is not empty.",
 		)
 	}
@@ -422,7 +422,7 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 			path.Root("grant_type"),
 			"Missing Gitops API grant_type",
 			"The provider cannot create the gitops API client as there is a missing or empty value for the gitops API grant_type. "+
-				"Set the host value in the configuration or use the GITOPS_GRANTTYPE environment variable. "+
+				"Set the grant_type value in the configuration or use the GITOPS_GRANTTYPE environment variable. "+
 				"If either is already set, ensure the value is not empty.",
 		)
 	}
@@ -431,7 +431,7 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 		return
 	}
 
-	ctx = tflog.SetField(ctx, "gitops_host", host)
+	ctx = tflog.SetField(ctx, "gitops_host", gitops_api_uri)
 	ctx = tflog.SetField(ctx, "gitops_username", username)
 	ctx = tflog.SetField(ctx, "gitops_clientid", client_id)
 	ctx = tflog.SetField(ctx, "gitops_tokenuri", token_uri)
@@ -440,7 +440,7 @@ func (p *gitopsProvider) Configure(ctx context.Context, req provider.ConfigureRe
 
 	// Create a new gitops client using the configuration values
 	clientConfig := gitopsclient.GitopsClientConfig{
-		GitopsApiURI:        host,
+		GitopsApiURI:        gitops_api_uri,
 		CachePath:           cache_path,
 		ClientId:            client_id,
 		ClientSecret:        client_secret,

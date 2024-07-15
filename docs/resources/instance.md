@@ -3,12 +3,12 @@
 page_title: "gitops_instance Resource - gitops"
 subcategory: ""
 description: |-
-  Manages a Gitops instance order
+  Manages a Gitops instance
 ---
 
 # gitops_instance (Resource)
 
-Manages a Gitops instance order
+Manages a Gitops instance
 
 ## Example Usage
 

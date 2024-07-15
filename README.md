@@ -3,7 +3,8 @@
 terraform {
   required_providers {
     gitops = {
-      source = "hashicorp.com/chillout2k/gitops"
+      source = "chillout2k/gitops"
+      version = "0.0.2"
     }
   }
 }
@@ -21,7 +22,7 @@ variable "gitops_password" {
 }*/
 
 provider "gitops" {
-  host = "http://localhost:8000"
+  gitops_api_uri = "http://localhost:8000"
   cache_path = "/tmp/.gitops-tf-provider"
   grant_type = "auth_code"
   #username = var.gitops_username

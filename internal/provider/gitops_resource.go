@@ -21,7 +21,7 @@ var (
 	_ resource.ResourceWithImportState = &gitopsInstanceResource{}
 )
 
-// NewOrderResource is a helper function to simplify the provider implementation.
+// NewGitopsInstanceResource is a helper function to simplify the provider implementation.
 func NewGitopsInstanceResource() resource.Resource {
 	return &gitopsInstanceResource{}
 }
@@ -76,7 +76,7 @@ func (r *gitopsInstanceResource) Metadata(_ context.Context, req resource.Metada
 // Schema defines the schema for the resource.
 func (r *gitopsInstanceResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Manages a Gitops instance order",
+		Description: "Manages a Gitops instance",
 		Attributes: map[string]schema.Attribute{
 			"instance_id": schema.StringAttribute{
 				Description: "ID of the Gitops resource instance",
@@ -196,7 +196,7 @@ func (r *gitopsInstanceResource) Read(ctx context.Context, req resource.ReadRequ
 		return
 	}
 
-	// Get refreshed order value from HashiCups
+	// Get refreshed instance value from Gitops API
 	gitopsInstance, err := r.client.GetInstance(state.Instance_id.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
@@ -248,7 +248,7 @@ func (r *gitopsInstanceResource) Update(ctx context.Context, req resource.Update
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Updating Gitpos Instance",
-			"Could not update order, unexpected error: "+err.Error(),
+			"Could not update instance, unexpected error: "+err.Error(),
 		)
 		return
 	}
@@ -276,7 +276,7 @@ func (r *gitopsInstanceResource) Delete(ctx context.Context, req resource.Delete
 		return
 	}
 
-	// Delete existing order
+	// Delete existing instance
 	err := r.client.DeleteInstance(state.Instance_id.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(

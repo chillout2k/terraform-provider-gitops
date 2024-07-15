@@ -14,7 +14,7 @@ Interact with Gitops-API via Gitops-Client
 
 ```terraform
 provider "gitops" {
-  host                  = "http://localhost:8000"
+  gitops_api_uri        = "http://localhost:8000"
   cache_path            = "/tmp/.gitops-tf-provider"
   grant_type            = "device_code"
   username              = "blah"
@@ -39,8 +39,8 @@ provider "gitops" {
 - `auth_uri` (String) Gitops client auth_uri (oauth). May also be provided via GITOPS_AUTHURI environment variable.
 - `cache_path` (String) Gitops client cache_path. May also be provided via GITOPS_CACHEPATH environment variable.
 - `client_id` (String) Gitops client client_id (oauth). May also be provided via GITOPS_CLIENTID environment variable.
+- `gitops_api_uri` (String) URI for Gitops API. May also be provided via GITOPS_HOST environment variable.
 - `grant_type` (String) Gitops client grant_type (oauth). May also be provided via GITOPS_GRANTTYPE environment variable.
-- `host` (String) URI for Gitops API. May also be provided via GITOPS_HOST environment variable.
 - `jwks_uri` (String) Gitops client jwks_uri (oauth). May also be provided via GITOPS_JWKSURI environment variable.
 - `token_uri` (String) Gitops client token_uri (oauth). May also be provided via GITOPS_TOKENURI environment variable.
 

@@ -1,5 +1,5 @@
 provider "gitops" {
-  host                  = "http://localhost:8000"
+  gitops_api_uri        = "http://localhost:8000"
   cache_path            = "/tmp/.gitops-tf-provider"
   grant_type            = "device_code"
   username              = "blah"
