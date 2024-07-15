@@ -50,31 +50,39 @@ func (d *gitopsDataSource) Metadata(_ context.Context, req datasource.MetadataRe
 // Schema defines the schema for the data source.
 func (d *gitopsDataSource) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: "Manages a Gitops instance order",
 		Attributes: map[string]schema.Attribute{
 			"plans": schema.ListNestedAttribute{
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
 						"instance_name": schema.StringAttribute{
-							Computed: true,
+							Description: "Name of the Gitops resource instance",
+							Computed:    true,
 						},
 						"orderer_id": schema.StringAttribute{
-							Computed: true,
+							Description: "Name of the Gitops resource orderer",
+							Computed:    true,
 						},
 						"bits_account": schema.Int64Attribute{
-							Computed: true,
+							Description: "Account-ID of the Gitops resource instance",
+							Computed:    true,
 						},
 						"service_id": schema.Int64Attribute{
-							Computed: true,
+							Description: "Service-ID of the Gitops resource instance",
+							Computed:    true,
 						},
 						"replica_count": schema.Int64Attribute{
-							Computed: true,
+							Description: "Replica count of the Gitops resource instance",
+							Computed:    true,
 						},
 						"version": schema.StringAttribute{
-							Computed: true,
+							Description: "Version of the Gitops resource instance",
+							Computed:    true,
 						},
 						"some_value": schema.StringAttribute{
-							Computed: true,
+							Description: "Some custom value of the Gitops resource instance",
+							Computed:    true,
 						},
 					},
 				},

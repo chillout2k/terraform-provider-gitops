@@ -1,0 +1,1 @@
+terraform import gitops_instance.test1 123

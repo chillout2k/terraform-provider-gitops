@@ -76,55 +76,67 @@ func (r *gitopsInstanceResource) Metadata(_ context.Context, req resource.Metada
 // Schema defines the schema for the resource.
 func (r *gitopsInstanceResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: "Manages a Gitops instance order",
 		Attributes: map[string]schema.Attribute{
 			"instance_id": schema.StringAttribute{
-				Computed: true,
+				Description: "ID of the Gitops resource instance",
+				Computed:    true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"order_time": schema.StringAttribute{
-				Computed: true,
+				Description: "Name of the Gitops resource orderer",
+				Computed:    true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"stage": schema.StringAttribute{
-				Computed: true,
+				Description: "Stage",
+				Computed:    true,
 				PlanModifiers: []planmodifier.String{
 					stringplanmodifier.UseStateForUnknown(),
 				},
 			},
 			"last_updated": schema.StringAttribute{
-				Computed: true,
+				Description: "Timestamp of last update",
+				Computed:    true,
 			},
 			"instance_name": schema.StringAttribute{
-				Computed: false,
-				Required: true,
+				Description: "Name of the Gitops resource instance",
+				Computed:    false,
+				Required:    true,
 			},
 			"orderer_id": schema.StringAttribute{
-				Computed: false,
-				Required: true,
+				Description: "ID of the Gitops resource orderer",
+				Computed:    false,
+				Required:    true,
 			},
 			"bits_account": schema.Int64Attribute{
-				Computed: false,
-				Required: true,
+				Description: "Account-ID of the Gitops resource instance",
+				Computed:    false,
+				Required:    true,
 			},
 			"service_id": schema.Int64Attribute{
-				Computed: false,
-				Required: true,
+				Description: "Service-ID of the Gitops resource instance",
+				Computed:    false,
+				Required:    true,
 			},
 			"replica_count": schema.Int64Attribute{
-				Computed: false,
-				Required: true,
+				Description: "Replica count of the Gitops resource instance",
+				Computed:    false,
+				Required:    true,
 			},
 			"version": schema.StringAttribute{
-				Computed: false,
-				Required: true,
+				Description: "Version of the Gitops resource instance",
+				Computed:    false,
+				Required:    true,
 			},
 			"some_value": schema.StringAttribute{
-				Computed: false,
-				Required: true,
+				Description: "Some custom value of the Gitops resource instance",
+				Computed:    false,
+				Required:    true,
 			},
 		},
 	}

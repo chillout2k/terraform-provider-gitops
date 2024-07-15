@@ -64,50 +64,65 @@ func (p *gitopsProvider) Metadata(_ context.Context, _ provider.MetadataRequest,
 // Schema defines the provider-level schema for configuration data.
 func (p *gitopsProvider) Schema(_ context.Context, _ provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: "Interact with Gitops-API via Gitops-Client",
 		Attributes: map[string]schema.Attribute{
 			"host": schema.StringAttribute{
-				Required: true,
+				Description: "URI for Gitops API. May also be provided via GITOPS_HOST environment variable.",
+				Required:    true,
 			},
 			"cache_path": schema.StringAttribute{
-				Required: true,
-			},
-			"username": schema.StringAttribute{
-				Optional: true,
-			},
-			"password": schema.StringAttribute{
-				Optional:  true,
-				Sensitive: true,
-			},
-			"client_id": schema.StringAttribute{
-				Required: true,
-			},
-			"client_secret": schema.StringAttribute{
-				Optional:  true,
-				Sensitive: true,
-			},
-			"token_uri": schema.StringAttribute{
-				Required: true,
-			},
-			"auth_uri": schema.StringAttribute{
-				Required: true,
-			},
-			"jwks_uri": schema.StringAttribute{
-				Required: true,
-			},
-			"redirect_uri": schema.StringAttribute{
-				Optional: true,
-			},
-			"authz_listener_socket": schema.StringAttribute{
-				Optional: true,
-			},
-			"scopes": schema.StringAttribute{
-				Optional: true,
+				Description: "Gitops client cache_path. May also be provided via GITOPS_CACHEPATH environment variable.",
+				Required:    true,
 			},
 			"grant_type": schema.StringAttribute{
-				Required: true,
+				Description: "Gitops client grant_type (oauth). May also be provided via GITOPS_GRANTTYPE environment variable.",
+				Required:    true,
+			},
+			"username": schema.StringAttribute{
+				Description: "Gitops client username (oauth grant_type: password). May also be provided via GITOPS_USERNAME environment variable.",
+				Optional:    true,
+			},
+			"password": schema.StringAttribute{
+				Description: "Gitops client password (oauth grant_type: password). May also be provided via GITOPS_PASSWORD environment variable.",
+				Optional:    true,
+				Sensitive:   true,
+			},
+			"client_id": schema.StringAttribute{
+				Description: "Gitops client client_id (oauth). May also be provided via GITOPS_CLIENTID environment variable.",
+				Required:    true,
+			},
+			"client_secret": schema.StringAttribute{
+				Description: "Gitops client client_secret (oauth). May also be provided via GITOPS_CLIENTSECRET environment variable.",
+				Optional:    true,
+				Sensitive:   true,
+			},
+			"token_uri": schema.StringAttribute{
+				Description: "Gitops client token_uri (oauth). May also be provided via GITOPS_TOKENURI environment variable.",
+				Required:    true,
+			},
+			"auth_uri": schema.StringAttribute{
+				Description: "Gitops client auth_uri (oauth). May also be provided via GITOPS_AUTHURI environment variable.",
+				Required:    true,
+			},
+			"jwks_uri": schema.StringAttribute{
+				Description: "Gitops client jwks_uri (oauth). May also be provided via GITOPS_JWKSURI environment variable.",
+				Required:    true,
+			},
+			"redirect_uri": schema.StringAttribute{
+				Description: "Gitops client redirect_uri (oauth). May also be provided via GITOPS_REDIRECTURI environment variable.",
+				Optional:    true,
+			},
+			"authz_listener_socket": schema.StringAttribute{
+				Description: "Gitops client http server for  (oauth grant_type: password). May also be provided via GITOPS_AUTHZLISTENERSOCKET environment variable.",
+				Optional:    true,
+			},
+			"scopes": schema.StringAttribute{
+				Description: "Gitops client scopes (oauth). May also be provided via GITOPS_SCOPES environment variable.",
+				Optional:    true,
 			},
 			"debug": schema.BoolAttribute{
-				Optional: true,
+				Description: "Gitops client debug mode. May also be provided via GITOPS_DEBUG environment variable.",
+				Optional:    true,
 			},
 		},
 	}
