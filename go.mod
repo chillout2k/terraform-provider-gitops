@@ -5,7 +5,7 @@ go 1.22.4
 require (
 	github.com/chillout2k/gitopsclient v0.0.1
 	github.com/hashicorp/terraform-plugin-docs v0.19.4
-	github.com/hashicorp/terraform-plugin-framework v1.10.0
+	github.com/hashicorp/terraform-plugin-framework v1.11.0
 	github.com/hashicorp/terraform-plugin-log v0.9.0
 )
 
